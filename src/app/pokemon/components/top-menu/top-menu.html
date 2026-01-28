@@ -1,0 +1,28 @@
+<nav class="p-5 w-full flex items-center justify-between">
+  <div class="text-2xl font-bold text-primary">PokeAPI</div>
+
+  <ul class="menu sm:menu-horizontal rounded-box flex items-center gap-3">
+    <label class="input input-bordered flex items-center gap-2 w-60">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          d="M21 21l-4.3-4.3m1.3-5.7a7 7 0 1 1-14 0a7 7 0 0 1 14 0Z"
+        />
+      </svg>
+      <input
+        type="text"
+        class="grow"
+        placeholder="Buscar por nombre"
+        [value]="term()"
+        (input)="onInput($event)"
+      />
+    </label>
+  </ul>
+</nav>

@@ -1,0 +1,39 @@
+<div class="max-w-2xl mx-auto p-4">
+  @if (loading()) {
+    <div class="flex justify-center p-20">
+      <span class="loading loading-pokeball loading-lg text-primary"></span>
+    </div>
+  } @else if (pokemon()) {
+    <div class="card bg-base-100 shadow-2xl border border-base-200 overflow-hidden">
+      <div class="bg-primary p-8 flex justify-center relative">
+        <span class="absolute top-4 left-4 text-primary-content font-mono font-bold opacity-50 text-2xl">
+          #{{ pokemon()?.id }}
+        </span>
+        <img 
+          [src]="pokemon()?.sprites?.other?.['official-artwork']?.front_default" 
+          [alt]="pokemon()?.name"
+          class="w-48 h-48 drop-shadow-2xl z-10"
+        />
+      </div>
+
+      <div class="card-body items-center text-center">
+        <h2 class="card-title text-4xl font-black uppercase tracking-tighter">
+          {{ pokemon()?.name }}
+        </h2>
+
+        <div class="flex gap-2 mb-4">
+          @for (item of pokemon()?.types; track item.type.name) {
+            <div class="badge badge-outline badge-lg font-bold">
+              {{ item.type.name | titlecase }}
+            </div>
+          }
+        </div>
+        <div class="card-actions mt-8">
+          <button class="btn btn-primary" [routerLink]="['/pokemon']">
+            Volver a la Pokedex
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

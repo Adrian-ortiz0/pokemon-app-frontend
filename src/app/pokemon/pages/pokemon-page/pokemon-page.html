@@ -1,0 +1,7 @@
+<app-top-menu
+  (searchTermChange)="onSearchChange($event)"
+></app-top-menu>
+
+<app-pokemon-list
+  [searchTerm]="searchTerm()"
+></app-pokemon-list>
