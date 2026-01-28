@@ -6,12 +6,12 @@ import { Component, input, output, signal } from '@angular/core';
   templateUrl: './top-menu.html',
 })
 export class TopMenu {
-  searchTerm = input<string>('');
+  searchTerm = input('');
   searchTermChange = output<string>();
+
   term = signal('');
 
-  onInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
+  onInput(value: string) {
     this.term.set(value);
     this.searchTermChange.emit(value);
   }

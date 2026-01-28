@@ -21,7 +21,8 @@
         class="grow"
         placeholder="Buscar por nombre"
         [value]="term()"
-        (input)="onInput($event)"
+        #search
+        (input)="onInput(search.value)"
       />
     </label>
   </ul>

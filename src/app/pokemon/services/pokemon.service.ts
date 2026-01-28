@@ -56,9 +56,10 @@ const API_URL = 'https://localhost:7274/api/pokemon';
 export class PokemonService {
     private http = inject(HttpClient);
 
-  getAllPokemon(offset: number = 0, limit: number = 20): Observable<PokemonListResponse>{
-    const url = `${API_URL}?offset=${offset}&limit=${limit}`;
-    return this.http.get<PokemonListResponse>(url);
+  getAllPokemon(offset = 0, limit = 20) {
+    return this.http.get<PokemonListResponse>(API_URL, {
+      params: { offset, limit }
+    });
   }
 
   getPokemonById(id: string | number): Observable<PokemonDetailInterface> {
@@ -74,9 +75,11 @@ export class PokemonService {
     return this.http.get<{name: string, url: string}[]>(`${API_URL}/names?limit=${limit}`);
   }
 
-  searchPokemon(term: string, maxResults: number = 20): Observable<PokemonWithSprite[]> {
-    return this.http.get<PokemonWithSprite[]>(`${API_URL}/search?term=${term}&maxResults=${maxResults}`);
-  }
+  searchPokemon(term: string, maxResults = 20) {
+  return this.http.get<PokemonWithSprite[]>(`${API_URL}/search`, {
+    params: { term, maxResults }
+  });
+}
 
   getPokemonDetails(url: string) {
     return this.http.get<{sprites: {front_default: string}}>(url);

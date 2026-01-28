@@ -71,7 +71,7 @@
         <div class="join shadow-md">
           <button class="join-item btn btn-md px-8" (click)="prevPage()" [disabled]="offset() <= 0">«</button>
           <button class="join-item btn btn-md no-animation">Página {{ currentPage() }}</button>
-          <button class="join-item btn btn-md px-8" (click)="loadMore()" [disabled]="!nextUrl()">»</button>
+          <button class="join-item btn btn-md px-8" (click)="nextPage()" [disabled]="isSearching()">»</button>
         </div>
       </div>
     } @else {

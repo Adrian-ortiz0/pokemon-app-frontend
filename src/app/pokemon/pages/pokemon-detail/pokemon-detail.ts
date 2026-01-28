@@ -1,4 +1,4 @@
-import { Component, inject, input, signal, OnInit } from '@angular/core';
+import { Component, inject, input, signal, OnInit, effect } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { PokemonDetailInterface } from '../../interfaces/pokemon-list.interface';
@@ -10,28 +10,31 @@ import { RouterLink } from "@angular/router";
   imports: [TitleCasePipe,RouterLink],
   templateUrl: './pokemon-detail.html',
 })
-export class PokemonDetail implements OnInit {
+export class PokemonDetail {
   private pokemonService = inject(PokemonService);
 
-  id = input.required<string>(); 
-  
+  id = input.required<string>();
+
   pokemon = signal<PokemonDetailInterface | null>(null);
   loading = signal(true);
 
-  ngOnInit() {
-    this.loadPokemon();
-  }
+  constructor() {
+    effect(() => {
+      const id = this.id();
+      if (!id) return;
 
-  loadPokemon() {
-    this.pokemonService.getPokemonById(this.id()).subscribe({
-      next: (data) => {
-        this.pokemon.set(data);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.loading.set(false);
-        console.error("Error cargando el Pokémon");
-      }
+      this.loading.set(true);
+
+      this.pokemonService.getPokemonById(id).subscribe({
+        next: data => {
+          this.pokemon.set(data);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.pokemon.set(null);
+          this.loading.set(false);
+        },
+      });
     });
   }
 }
